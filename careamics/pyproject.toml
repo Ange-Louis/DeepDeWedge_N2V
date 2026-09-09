@@ -1,23 +1,16 @@
 # https://peps.python.org/pep-0517/
 
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
-# read more about configuring hatch at:
-# https://hatch.pypa.io/latest/config/build/
-
-# https://hatch.pypa.io/latest/config/metadata/
-[tool.hatch.version]
-source = "vcs"
 
 [tool.hatch.build.targets.wheel]
 only-include = ["src"]
 sources = ["src"]
 
-# https://peps.python.org/pep-0621/
 [project]
 name = "careamics"
-dynamic = ["version"]
+version = "0.3.2"
 description = "Toolbox for running N2V and friends."
 readme = "README.md"
 requires-python = ">=3.11"
