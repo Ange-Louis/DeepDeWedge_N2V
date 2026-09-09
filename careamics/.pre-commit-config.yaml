@@ -1,0 +1,63 @@
+# enable pre-commit.ci at https://pre-commit.ci/
+# it adds:
+# 1. auto fixing pull requests
+# 2. auto updating the pre-commit configuration
+ci:
+  autoupdate_schedule: monthly
+  autofix_commit_msg: "style(pre-commit.ci): auto fixes [...]"
+  autoupdate_commit_msg: "ci(pre-commit.ci): autoupdate"
+
+repos:
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.25
+    hooks:
+      - id: validate-pyproject
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.1
+    hooks:
+      - id: ruff
+        exclude: "^(docs/.*|src/careamics/lvae_training/.*|src/careamics/models/lvae/.*|scripts/.*|demos/.*)"
+
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 26.5.1
+    hooks:
+      - id: black
+        args: [--target-version=py313]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v2.3.0
+    hooks:
+      - id: mypy
+        files: "^src/"
+        exclude: "^(docs/.*|src/careamics/lvae_training/.*|src/careamics/models/lvae/.*|src/careamics/config/likelihood_model.py|src/careamics/losses/lvae/.*)"
+        args: ["--config-file", "mypy.ini"]
+        additional_dependencies:
+          - numpy
+          - pydantic
+          - types-PyYAML
+          - types-setuptools
+          - zarr
+
+  # check docstrings
+  - repo: https://github.com/numpy/numpydoc
+    rev: v1.11.0rc0
+    hooks:
+      - id: numpydoc-validation
+        exclude: "^(tests/.*|docs/.*|src/careamics/lvae_training/.*|src/careamics/models/lvae/.*|src/careamics/losses/lvae/.*|scripts/.*)"
+        # data_module: overloads and config params (val_percentage etc.) don't match signature; see https://github.com/numpy/numpydoc/issues/559
+
+  # # jupyter linting and formatting
+  # - repo: https://github.com/nbQA-dev/nbQA
+  #   rev: 1.8.5
+  #   hooks:
+  #     - id: nbqa-ruff
+  #       args: [--fix]
+  #     - id: nbqa-black
+  #     #- id: nbqa-mypy
+
+  # strip out jupyter notebooks
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout

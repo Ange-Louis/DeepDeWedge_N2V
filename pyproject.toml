@@ -5,26 +5,38 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "DeepDeWedge_N2V"
 version = "0.1.0"
+description = "Simultaneous denoising and missing wedge reconstruction of cryo-ET tomograms, with Noise2Void/Noise2Void2 support via CAREamics."
+readme = "README.md"
 requires-python = ">=3.12"
+authors = [
+    { name = "Ange-Louis Sammarcelli", email = "al.sammarcelli@outlook.com" },
+    { name = "Simon Wiedemann", email = "simonw.wiedemann@tum.de" },
+]
 dependencies = [
-    "numpy>=2.4.3,<3",
-    "pillow>=12.2.0,<13",
+    "numpy>=2.4.3,<=2.4.6",
+    "pillow>=12.2.0,<=12.3.0",
     "mrcfile>=1.5.4,<2",
     "typer",
     "typer-cli",
     "typer-config",
     "typer-slim",
-    "matplotlib",
-    "torchvision",
+    "matplotlib<=3.11.1",
+    "torchvision<=0.25.0",
     "pytorch-lightning",
+    "lightning>=2.2,!=2.6.2,!=2.6.3,<=2.6.5",
     "scipy",
-    "torch",
+    "torch>=2.1.0,<2.13.0",
+    "pydantic>=2.11,<=2.13.5",
     "tensorboard>=2.19.0,<3",
-    "setuptools<70"
+    "setuptools<70",
+    "careamics",
 ]
 
 [project.scripts]
 ddw = "ddw.app:main"
+
+[tool.setuptools]
+packages = ["ddw", "ddw.utils"]
 
 [dependency-groups]
 test = [
@@ -39,6 +51,7 @@ package = true
 [tool.uv.sources]
 torch = { index = "pytorch-cu121" }
 torchvision = { index = "pytorch-cu121" }
+careamics = { path = "./careamics", editable = true }
 
 [[tool.uv.index]]
 name = "pytorch-cu121"
