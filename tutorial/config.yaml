@@ -31,8 +31,8 @@ fit_model:
       seed: 43                        # obligatoire de la donner pour l'instant en plus de la shared (je n'ai pas associer les 2)
     num_epochs: 1000
     batch_size: 5
-    update_subtomo_missing_wedges_every_n_epochs: 10
-    check_val_every_n_epochs: 10
+    update_subtomo_missing_wedges_every_n_epochs: 99999
+    check_val_every_n_epochs: 1
     save_n_models_with_lowest_val_loss: 5
     save_n_models_with_lowest_fitting_loss: 5
     save_model_every_n_epochs: 50

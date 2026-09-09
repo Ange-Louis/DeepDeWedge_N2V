@@ -1,4 +1,4 @@
- """N2V manipulation transform for PyTorch."""
+"""N2V manipulation transform for PyTorch."""
 
 from typing import Any
 

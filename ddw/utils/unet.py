@@ -90,9 +90,14 @@ class LitUnet3D(pl.LightningModule):
     #     self.ema.update()
 
     def on_train_start(self) -> None:
-        self.n2v_manipulate = N2VManipulate(self.n2v_manipulate_config, device=self.device)
         if self.current_epoch == 0:
             self.update_normalization()
+
+    @property
+    def n2v_manipulate(self):
+        if not hasattr(self, "_n2v_manipulate"):
+            self._n2v_manipulate = N2VManipulate(self.n2v_manipulate_config, device=self.device)
+        return self._n2v_manipulate
 
     def on_train_epoch_end(self) -> None:
         if (
