@@ -26,9 +26,9 @@ fit_model:
       lr: 0.0004
     n2v_manipulate_params:
       strategy: "median"              # "median" = N2V2 ; "uniform" = N2V
-      roi_size: 11                    # doit être impair, entre 3 et 21
+      roi_size: 11                    # must be an odd number; between 3 and 21
       masked_pixel_percentage: 5.0    
-      seed: 43                        # dérivé manuellement de shared.seed (42 + 1) ; à retirer une fois la dérivation automatique branchée dans fit_n2v_model.py
+      seed: 43                        # obligatoire de la donner pour l'instant en plus de la shared (je n'ai pas associer les 2)
     num_epochs: 1000
     batch_size: 5
     update_subtomo_missing_wedges_every_n_epochs: 10
