@@ -14,6 +14,8 @@ The original DeepDeWedge relies on **Noise2Noise** (Lehtinen et al., 2018): mode
 
 **In practice, this means `prepare-data`, `fit-model` and `refine-tomogram` now all operate on a single tomogram per specimen**, instead of a pair of independent reconstructions.
 
+For a detailed explanation of the design decisions and code changes behind this switch from Noise2Noise to Noise2Void/Noise2Void2, see [`N2V_MIGRATION.md`](N2V_MIGRATION.md).
+
 ## Installation
 
 Clone this repository together with your local checkout of CAREamics (used here purely as a function library for the N2V/N2V2 blind-spot masking, not for its own training pipeline):
