@@ -1,4 +1,4 @@
-# DeepDeWedge_N2V
+# DeepDeWedge Noise2Void/Noise2Void2
 
 This repository is an adaptation of [DeepDeWedge](https://github.com/MLI-lab/DeepDeWedge), a method for simultaneous denoising and missing wedge reconstruction in cryogenic electron tomography, originally described in ["A Deep Learning Method for Simultaneous Denoising and Missing Wedge Reconstruction in Cryogenic Electron Tomography"](https://www.nature.com/articles/s41467-024-51438-y) (Wiedemann & Heckel, *Nature Communications*, 2024).
 
