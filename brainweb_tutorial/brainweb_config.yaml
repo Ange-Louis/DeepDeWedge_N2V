@@ -1,0 +1,42 @@
+shared:
+  project_dir: "./brainweb_project"
+  tomo0_files:
+    - "./brainweb_tutorial/brainweb_dataset/brainweb_tomo_even_frames.mrc"
+  tomo1_files:
+    - "./brainweb_tutorial/brainweb_dataset/brainweb_tomo_odd_frames.mrc"
+  subtomo_size: 64
+  mw_angle: 50
+  # standardize_full_tomos: true  # not necessary for BrainWeb but useful if your volumes have low voxel intensities; see "ddw prepare-data --help" for details
+  num_workers: 10
+  gpu: 0  # you can also set this to a list of GPUs, e.g. [0, 1]. Note: Only fit_model will use multiple GPUs. refine_tomogram will use only one GPU (the first one in the list).
+  # distributed_backend: "nccl"  # which backend PyTorch Lightning uses for distributed training
+  seed: 42
+
+prepare_data:
+  # no mask_files: sub-tomograms are extracted from the full BrainWeb volume
+  subtomo_extraction_strides: [16, 19, 16]
+  val_fraction: 0.1
+
+fit_model:
+    unet_params_dict:
+      chans: 64
+      num_downsample_layers: 3
+      drop_prob: 0.0
+    adam_params_dict:
+      lr: 0.0004
+    num_epochs: 1000
+    batch_size: 5
+    update_subtomo_missing_wedges_every_n_epochs: 10
+    check_val_every_n_epochs: 10
+    save_n_models_with_lowest_val_loss: 5
+    save_n_models_with_lowest_fitting_loss: 5
+    save_model_every_n_epochs: 50
+    logger: "csv"
+
+
+refine_tomogram:
+    # no pre-fitted checkpoint is shipped for BrainWeb: point this to a checkpoint
+    # produced by your own "ddw fit-model" run (Step 2) once training is done
+    model_checkpoint_file: "./brainweb_project/logs/version_0/checkpoints/epoch/epoch=999.ckpt"
+    subtomo_overlap: 8
+    batch_size: 10
